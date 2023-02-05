@@ -13,5 +13,6 @@ func registerTaskRoutes(_ application: Application, version: APIVersion) throws 
             addTask(tasksRoute: tasks)
             patch(tasksRoute: tasks)
             delete(tasksRoute: tasks)
+            suggestionQuery(tasksRoute: tasks)
         }
 }
