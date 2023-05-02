@@ -12,14 +12,15 @@ public func configure(_ app: Application) throws {
 
     try registerUserRoutes(app, version: .v1)
     try registerTaskRoutes(app, version: .v1)
+    try routes(app, version: .v1)
 
     var tls = TLSConfiguration.makeClientConfiguration()
     tls.certificateVerification = .none
 
-    let configuration = DatabaseConfigurationFactory.mysql(hostname: "mateusbrigido-1.cgesmw9rjd7a.us-east-1.rds.amazonaws.com",
-                                                           username: "admin",
-                                                           password: "123pipoca",
-                                                           database: "Todo",
+    let configuration = DatabaseConfigurationFactory.mysql(hostname: Environment.get("DATABASE_HOST") ?? "localhost",
+                                                           username: Environment.get("DATABASE_USERNAME") ?? "vapor_username",
+                                                           password: Environment.get("DATABASE_PASSWORD") ?? "vapor_password",
+                                                           database: Environment.get("DATABASE_NAME") ?? "vapor_database",
                                                            tlsConfiguration: tls)
     app.databases.use(configuration, as: .mysql)
 }
