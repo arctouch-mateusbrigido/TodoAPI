@@ -1,12 +1,10 @@
 import Fluent
 import Vapor
 
-func routes(_ app: Application) throws {
-    app.get { req async in
-        "It works!"
-    }
+func routes(_ app: Application, version: APIVersion) throws {
+    let versioned = app.grouped(PathComponent(stringLiteral: version.rawValue))
 
-    app.get("hello") { req async -> String in
-        "Hello, world!"
+    versioned.get { req async in
+        "It works!"
     }
 }
